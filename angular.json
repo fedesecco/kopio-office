@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "schiesaro-sito": {
+    "kopio-office": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -56,10 +56,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "schiesaro-sito:build:production"
+              "buildTarget": "kopio-office:build:production"
             },
             "development": {
-              "buildTarget": "schiesaro-sito:build:development"
+              "buildTarget": "kopio-office:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,3 +88,4 @@
     "analytics": "04f428e3-5ada-4277-a051-3e0ca920a1b7"
   }
 }
+
