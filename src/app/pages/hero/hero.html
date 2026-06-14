@@ -15,8 +15,9 @@
     }
 
     <div class="landing-page__coordinates landing-page__coordinates--left">
-      <span>{{ latitude().major }}</span>
-      <span>{{ latitude().minor }}</span>
+      <span class="landing-page__coordinate-major">{{ latitude().major }}</span>
+      <span class="landing-page__coordinate-minor">{{ latitude().minor }}</span>
+      <span class="landing-page__coordinate-compact">{{ latitudeCompact() }}</span>
     </div>
 
     <a
@@ -28,8 +29,9 @@
     </a>
 
     <div class="landing-page__coordinates landing-page__coordinates--right">
-      <span>{{ longitude().major }}</span>
-      <span>{{ longitude().minor }}</span>
+      <span class="landing-page__coordinate-major">{{ longitude().major }}</span>
+      <span class="landing-page__coordinate-minor">{{ longitude().minor }}</span>
+      <span class="landing-page__coordinate-compact">{{ longitudeCompact() }}</span>
     </div>
   </div>
 </section>

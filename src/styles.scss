@@ -194,6 +194,10 @@ app-root,
   font-variant-numeric: tabular-nums;
 }
 
+.landing-page__coordinate-compact {
+  display: none;
+}
+
 .landing-page__coordinates--left {
   grid-column: 2;
   grid-row: 2;
@@ -734,24 +738,45 @@ code {
 
 @media (max-width: 720px) {
   .landing-page__inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
     gap: 1.2rem;
     align-items: center;
   }
 
-  .landing-page__coordinates--left,
-  .landing-page__coordinates--right,
   .landing-page__title {
-    grid-column: 1;
-  }
-
-  .landing-page__title {
+    grid-column: 1 / -1;
+    grid-row: 1;
     align-items: center;
     text-align: center;
   }
 
+  .landing-page__coordinates--left {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .landing-page__coordinates--right {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    text-align: right;
+  }
+
   .landing-page__coordinates {
+    display: block;
     font-size: 1rem;
+  }
+
+  .landing-page__coordinate-major,
+  .landing-page__coordinate-minor {
+    display: none;
+  }
+
+  .landing-page__coordinate-compact {
+    display: inline;
   }
 
   .layout-grid {

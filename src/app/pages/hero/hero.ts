@@ -28,6 +28,8 @@ export class HeroComponent implements OnInit, OnDestroy {
   );
   protected readonly latitude = computed(() => this.buildCoordinateParts(1 - this.pointerY()));
   protected readonly longitude = computed(() => this.buildCoordinateParts(1 - this.pointerX()));
+  protected readonly latitudeCompact = computed(() => this.interpolateCoordinate(1 - this.pointerY()).toFixed(4));
+  protected readonly longitudeCompact = computed(() => this.interpolateCoordinate(1 - this.pointerX()).toFixed(4));
 
   ngOnInit(): void {
     if (typeof window === 'undefined') {
