@@ -1,5 +1,19 @@
-<section class="route-shell landing-page" (mousemove)="trackPointer($event)">
+<section
+  class="route-shell landing-page"
+  (mousemove)="trackPointer($event)"
+  (touchstart)="trackTouch($event)"
+  (touchmove)="trackTouch($event)"
+>
   <div class="landing-page__inner">
+    @if (showMotionPrompt()) {
+      <div class="landing-page__motion-prompt">
+        <p>Enable motion to move the coordinates with your phone.</p>
+        <button type="button" class="landing-page__motion-button" (click)="enableMotionTracking()">
+          Enable Motion
+        </button>
+      </div>
+    }
+
     <div class="landing-page__coordinates landing-page__coordinates--left">
       <span>{{ latitude().major }}</span>
       <span>{{ latitude().minor }}</span>
