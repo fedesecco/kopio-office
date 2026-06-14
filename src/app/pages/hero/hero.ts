@@ -8,60 +8,33 @@ import { CoordinateParts } from '../../shared/utils/coordinates';
   templateUrl: './hero.html',
 })
 export class HeroComponent {
+  private readonly coordinateMin = 10;
+  private readonly coordinateMax = 100;
   private readonly pointerX = signal(0.5);
   private readonly pointerY = signal(0.5);
 
   protected readonly siteTitle = 'KOPIO OFFICE';
-  protected readonly landing = {
-    latitude: '33.428956',
-    longitude: '6.870023',
-  };
-  protected readonly latitude = computed(() =>
-    this.buildCoordinateParts(this.landing.latitude, this.pointerY(), this.pointerX(), 0.032, 0.284),
-  );
-  protected readonly longitude = computed(() =>
-    this.buildCoordinateParts(
-      this.landing.longitude,
-      1 - this.pointerX(),
-      this.pointerY(),
-      0.028,
-      0.216,
-    ),
-  );
+  protected readonly latitude = computed(() => this.buildCoordinateParts(1 - this.pointerY()));
+  protected readonly longitude = computed(() => this.buildCoordinateParts(1 - this.pointerX()));
 
   protected trackPointer(event: MouseEvent): void {
     this.pointerX.set(clamp(event.clientX / window.innerWidth));
     this.pointerY.set(clamp(event.clientY / window.innerHeight));
   }
 
-  private buildCoordinate(
-    baseValue: string,
-    primaryRatio: number,
-    secondaryRatio: number,
-    range: number,
-  ): string {
-    const baseNumber = Number.parseFloat(baseValue);
-    const offset = (primaryRatio - 0.5) * range + (secondaryRatio - 0.5) * range * 0.38;
-
-    return (baseNumber + offset).toFixed(6);
-  }
-
-  private buildCoordinateParts(
-    baseValue: string,
-    primaryRatio: number,
-    secondaryRatio: number,
-    majorRange: number,
-    minorRange: number,
-  ): CoordinateParts {
-    const slowValue = this.buildCoordinate(baseValue, primaryRatio, secondaryRatio, majorRange);
-    const fastValue = this.buildCoordinate(baseValue, primaryRatio, secondaryRatio, minorRange);
-    const [slowWhole = '00', slowFraction = '000'] = slowValue.split('.');
-    const [, fastFraction = '000000'] = fastValue.split('.');
+  private buildCoordinateParts(ratio: number): CoordinateParts {
+    const value = this.interpolateCoordinate(ratio).toFixed(6);
+    const [whole = '00', fraction = '000000'] = value.split('.');
+    const paddedFraction = fraction.padEnd(6, '0');
 
     return {
-      major: `${slowWhole}.${slowFraction.slice(0, 3)}`,
-      minor: fastFraction.slice(3, 6),
+      major: `${whole}.${paddedFraction.slice(0, 3)}`,
+      minor: paddedFraction.slice(3, 6),
     };
+  }
+
+  private interpolateCoordinate(ratio: number): number {
+    return this.coordinateMin + clamp(ratio) * (this.coordinateMax - this.coordinateMin);
   }
 }
 
