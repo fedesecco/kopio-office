@@ -21,6 +21,8 @@ export class HeroComponent implements OnInit, OnDestroy {
   };
 
   protected readonly siteTitle = 'KOPIO OFFICE';
+  protected readonly heroNavigationEnabled = signal(false);
+  protected readonly homeRoute = '/home';
   protected readonly showMotionPrompt = computed(
     () => this.isCoarsePointer() && this.motionSupported() && !this.motionEnabled() && !this.motionDenied(),
   );

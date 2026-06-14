@@ -19,7 +19,11 @@
       <span>{{ latitude().minor }}</span>
     </div>
 
-    <a class="landing-page__title" routerLink="/home">
+    <a
+      class="landing-page__title"
+      [routerLink]="heroNavigationEnabled() ? homeRoute : null"
+      [attr.aria-disabled]="!heroNavigationEnabled()"
+    >
       <span>{{ siteTitle }}</span>
     </a>
 
